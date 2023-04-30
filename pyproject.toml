@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "fastapiproject"
+version = "0.1.0"
+description = ""
+authors = ["The Xorus <jdpepi@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+fastapi = "^0.95.1"
+#uvicorn = "^0.22.0"
+pythonnet = "^3.0.1"
+nicegui = "^1.2.10"
+sqlalchemy = "^2.0.11"
+alembic = "^1.10.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poe.tasks]
+alup = "alembic upgrade head"
+mig  = "alembic revision --autogenerate -m "
