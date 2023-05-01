@@ -1,0 +1,3 @@
+[submodule "userscript"]
+	path = userscript
+	url = https://github.com/xorus/twitch-channel-points-logger
