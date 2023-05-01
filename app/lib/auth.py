@@ -40,12 +40,13 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Se
     return user
 
 
-def create_access_token(user_id: uuid.UUID, user_name: str):
+def create_access_token(user_id: uuid.UUID, user_name: str, user_token: str):
     return jwt.encode(
         {
             "sub": str(user_id),
             "name": user_name,
-            "iat": datetime.utcnow()
+            "iat": datetime.utcnow(),
+            "token": user_token
         },
         settings.jwt_secret,
         JWT_ALGORITHM

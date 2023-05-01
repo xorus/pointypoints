@@ -24,8 +24,7 @@ def get_user_by_twitch_id(twitch_id: str, db: Session) -> schemas.UserFull | Non
     return db.query(models.User).filter(models.User.twitch_id == twitch_id).first()
 
 
-def update_existing_token_and_info(user: schemas.UserFull, db: Session) -> schemas.UserFull:
-    user.token = token_urlsafe(64)
+def update_existing_info(user: schemas.UserFull, db: Session) -> schemas.UserFull:
     db.add(user)
     db.commit()
     db.refresh(user)

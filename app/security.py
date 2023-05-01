@@ -5,7 +5,7 @@ from starlette.responses import RedirectResponse, HTMLResponse
 from twitchAPI import Twitch
 
 from app.db.database import get_db
-from app.db.user import create_user_from_twitch, get_user_by_twitch_id, update_existing_token_and_info
+from app.db.user import create_user_from_twitch, get_user_by_twitch_id, update_existing_info
 from app.lib.auth import create_access_token, RequireUserToken
 from app.settings import settings
 
@@ -32,11 +32,8 @@ def init(app: FastAPI) -> None:
 
     @app.get('/auth/twitch')
     async def auth_twitch(code, db: Session = Depends(get_db)):
-        result = await twitch_client().fetch_token(
-            f'https://id.twitch.tv/oauth2/token',
-            grant_type='authorization_code',
-            code=code)
-
+        result = await twitch_client().fetch_token(f'https://id.twitch.tv/oauth2/token',
+                                                   grant_type='authorization_code', code=code)
         access_token = result.get('access_token')
         if access_token is None:
             print("invalid auth")
@@ -73,8 +70,8 @@ def init(app: FastAPI) -> None:
         if existing is not None:
             existing.profile_image_url = me.profile_image_url
             existing.display_name = me.display_name
-            user = update_existing_token_and_info(existing, db)
+            user = update_existing_info(existing, db)
         else:
             user = create_user_from_twitch(me.id, me.display_name, me.profile_image_url, db)
 
-        return create_access_token(user.id, user.display_name)
+        return create_access_token(user.id, user.display_name, user.token)

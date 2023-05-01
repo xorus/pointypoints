@@ -17,14 +17,9 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-@app.get("/hello")
-async def root():
-    return {"message": "Hello Mundo"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+@app.get("/health")
+async def health():
+    return {"status": "OK"}
 
 
 security.init(app)
