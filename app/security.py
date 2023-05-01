@@ -40,9 +40,10 @@ def init(app: FastAPI) -> None:
             return HTMLResponse("""
             <html>
                 <head>
-                    <title>Some HTML in here</title>
+                    <title>Xorus' Twitch Point Counter</title>
                 </head>
                 <body>
+                    <p>Received an invalid response from Twitch, something went wrong :(.</p>
                     <a href="/login/twitch">Login with Twitch</a>
                 </body>
             </html>
@@ -58,10 +59,11 @@ def init(app: FastAPI) -> None:
             return HTMLResponse("""
             <html>
                 <head>
-                    <title>Some HTML in here</title>
+                    <title>Xorus' Twitch Point Counter</title>
                 </head>
                 <body>
-                    <a href="/login/twitch">Login with Twitch (2)</a>
+                    <p>We could not get an authorization token from Twitch. Please try again.</p>
+                    <a href="/login/twitch">Login with Twitch</a>
                 </body>
             </html>
                 """, status_code=401)
