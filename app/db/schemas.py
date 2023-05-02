@@ -6,8 +6,10 @@ from pydantic import BaseModel
 
 class UserBase(BaseModel):
     twitch_id: str
-    display_name: str
-    profile_image_url: str
+    display_name: str | None
+    """not stored by default for privacy reasons"""
+    profile_image_url: str | None
+    """not stored by default for privacy reasons"""
     created_at: datetime
 
 

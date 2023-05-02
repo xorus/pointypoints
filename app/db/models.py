@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import ForeignKey
+from sqlalchemy import ForeignKey, Index
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 
 from .database import Base
@@ -13,7 +13,7 @@ class User(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(primary_key=True, index=True)
     twitch_id: Mapped[str] = mapped_column()
-    display_name: Mapped[str] = mapped_column()
+    display_name: Mapped[str] = mapped_column(nullable=True)
     profile_image_url: Mapped[str] = mapped_column(nullable=True)
     date: Mapped[datetime] = mapped_column(index=True, default=datetime.utcnow)
     point_values: Mapped[List["PointValue"]] = relationship()
@@ -28,3 +28,6 @@ class PointValue(Base):
     value: Mapped[int] = mapped_column()
     date: Mapped[datetime] = mapped_column(index=True, default=datetime.utcnow)
     user: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
+
+
+Index("user_point_value_channel_date", PointValue.user, PointValue.date, PointValue.channel_name)

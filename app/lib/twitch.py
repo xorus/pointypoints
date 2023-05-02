@@ -2,7 +2,7 @@ from twitchAPI.twitch import Twitch
 
 from app.settings import settings
 
-
+# unused for now, but I have plans (tm)
 class TwitchInstance:
     api = None
 

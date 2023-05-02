@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     base_url: str
     # openssl rand -hex 32
     jwt_secret: str
+    session_secret: str
 
 
 settings = Settings()

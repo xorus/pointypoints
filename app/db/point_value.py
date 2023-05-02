@@ -7,7 +7,8 @@ from . import models, schemas
 
 def get_point_values_by_user_and_channel_name(channel_name: str, user: uuid.UUID, db: Session):
     return db.query(models.PointValue) \
-        .filter(models.PointValue.user == user and models.PointValue.channel_name == channel_name) \
+        .filter(models.PointValue.user == user) \
+        .filter(models.PointValue.channel_name == channel_name) \
         .limit(100).all()
 
 
