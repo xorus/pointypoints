@@ -15,4 +15,4 @@ RUN poetry lock && poetry install --only main
 
 EXPOSE 8000
 
-ENTRYPOINT ["/app/start.sh", "prod"]
+ENTRYPOINT ["/app/docker/init.sh"]
