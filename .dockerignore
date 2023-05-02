@@ -1,0 +1,12 @@
+.git
+.idea
+__pycache__
+run
+.env
+.gitignore
+.gitmodules
+userscript
+!userscript/build/
+.dockerignore
+Dockerfile
+docker-compose.yml

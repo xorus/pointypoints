@@ -17,6 +17,7 @@ authlib = "^1.2.0"
 httpx = "^0.24.0"
 twitchapi = "^3.10.0"
 python-jose = "^3.3.0"
+itsdangerous = "^2.1.2"
 
 
 [build-system]
