@@ -6,13 +6,11 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 
-def create_user_from_twitch(hashed_twitch_id: str, display_name: str, profile_image_url: str, db: Session) -> schemas.UserFull:
+def create_user_from_twitch(hashed_twitch_id: str, db: Session) -> schemas.UserFull:
     db_item = models.User(
         id=uuid.uuid4(),
         token=token_urlsafe(64),
-        twitch_id=hashed_twitch_id,
-        display_name=display_name,
-        profile_image_url=profile_image_url,
+        twitch_id=hashed_twitch_id
     )
     db.add(db_item)
     db.commit()

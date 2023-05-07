@@ -61,6 +61,6 @@ def user_from_login(plain_twitch_id: str, display_name: str, profile_image_url: 
     hashed_twitch_id = hash_twitch_id(plain_twitch_id)
     user = get_user_by_twitch_id(hashed_twitch_id, db)
     if user is None:
-        user = create_user_from_twitch(hashed_twitch_id, display_name, profile_image_url, db)
+        user = create_user_from_twitch(hashed_twitch_id, db)
 
     return user
