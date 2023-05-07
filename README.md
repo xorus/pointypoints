@@ -11,6 +11,10 @@ App hosted at https://pointypoints.xorus.dev/
 Uses nicegui as frontend because I needed something done quickly. I don't like the fact it's super heavy on the browser
 but heh. I'll replace it later.
 
+TODO:
+
+- csv export your point data
+
 ## install run
 
 Copy .env.dist to .env, set it up and load it into your env.
