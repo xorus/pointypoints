@@ -2,11 +2,16 @@
 
 My first python project!
 
-Not yet hosted.
+App hosted at https://pointypoints.xorus.dev/
+
+[Install userscript](https://pointypoints.xorus.dev/userscript/twitch-channel-points-logger.user.js)
 
 [Userscript repo](https://github.com/xorus/twitch-channel-points-logger)
 
-## run
+Uses nicegui as frontend because I needed something done quickly. I don't like the fact it's super heavy on the browser
+but heh. I'll replace it later.
+
+## install run
 
 Copy .env.dist to .env, set it up and load it into your env.
 
@@ -16,7 +21,10 @@ Copy .env.dist to .env, set it up and load it into your env.
 Install database `poetry run alembic upgrade head`.
 
 There is also a docker image with a docker-compose provided. It will automatically run the database migration command.
-Since this is a work in progress, the image is not yet hosted (but will be once I set up some CI).
+
+Docker hub image: https://hub.docker.com/r/xorus/pointypoints
+
+Check `docker/docker-compose.yml`.
 
 ## privacy
 

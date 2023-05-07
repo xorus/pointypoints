@@ -21,28 +21,28 @@ from app.settings import settings
 #     ui.number().bind_value(demo, 'number')
 
 
-def landing_content():
-    with ui.card().style('max-width: 300px'):
-        ui.link('Install userscript', '/userscript/twitch-channel-points-logger.user.js').classes(
-            replace='text-white font-bold underline')
-        ui.markdown('You need an userscript extension such as TamperMonkey ('
-                    '[Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/), '
-                    '[Chrome](https://chrome.google.com/webstore/detail/tampermonkey'
-                    '/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en))'
-                    ' to use this.')
-    with ui.card():
-        ui.link('Source code', 'https://github.com/xorus/pointypoints', new_tab=True).classes(
-            replace='text-white font-bold underline')
-
-
 def init(app: FastAPI) -> None:
     @ui.page('/')
     def show(request: Request, db: Session = Depends(get_db)):
         with theme.frame('Home', request):
-            landing_content()
-
             if (user := get_session_user(request, db)) is not None:
-                print(user)
+                with ui.row():
+                    with ui.card().style('max-width: 300px'):
+                        ui.label("You are logged in!")
+                        ui.link('Go to /points', '/points').classes(replace='text-white font-bold underline')
+
+            with ui.row():
+                with ui.card().style('max-width: 300px'):
+                    ui.link('Install userscript', '/userscript/twitch-channel-points-logger.user.js').classes(
+                        replace='text-white font-bold underline')
+                    ui.markdown('You need an userscript extension such as TamperMonkey ('
+                                '[Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/), '
+                                '[Chrome](https://chrome.google.com/webstore/detail/tampermonkey'
+                                '/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en))'
+                                ' to use this.')
+                with ui.card().style('max-width: 300px'):
+                    ui.link('Source code', 'https://github.com/xorus/pointypoints', new_tab=True).classes(
+                        replace='text-white font-bold underline')
 
     @app.get('/login')
     def login():

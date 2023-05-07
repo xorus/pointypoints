@@ -1,8 +1,29 @@
+# example docker compose for running the app
 services:
   app:
-    build: .
-    env_file: .env
+    image: xorus/pointypoints:test
     ports:
       - 8000:8000
     volumes:
-      - './run/docker:/app/run:rw'
+      - './run/app:/app/run:rw'
+    env_file:
+      - .env
+    env:
+      - BASE_URL=http://localhost:8000
+      - JWT_SECRET=run openssl rand -hex 32
+      - TWITCH_CLIENT_ID=twitch api client id
+      - TWITCH_CLIENT_SECRET=twitch api secret
+      - SESSION_SECRET=run openssl rand -hex 32
+      - DATABASE_URL=postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - WEB_CONCURRENCY=1
+
+  postgres:
+    image: postgres:15
+    ports:
+      - 5432:5432 # not required
+    volumes:
+      - './run/pgsql:/var/lib/postgresql/data:rw'
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
