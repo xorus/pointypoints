@@ -4,7 +4,7 @@ My first python project!
 
 App hosted at https://pointypoints.xorus.dev/
 
-[Install userscript](https://pointypoints.xorus.dev/userscript/twitch-channel-points-logger.user.js)
+[Install userscript](https://pointypoints.xorus.dev/userscript/twitch-channel-points-logger.user.js?nocache)
 
 [Userscript repo](https://github.com/xorus/twitch-channel-points-logger)
 

@@ -18,7 +18,7 @@ def init(app: FastAPI) -> None:
     @ui.page('/points')
     def show(request: Request, db: Session = Depends(get_db)):
         """show the connected user's current channel"""
-        with theme.frame('Home', request):
+        with theme.frame('Channel list', request):
             user = get_session_user(request, db)
             if user is None:
                 raise HTTPException(status_code=401)
@@ -36,7 +36,7 @@ def init(app: FastAPI) -> None:
     @ui.page('/points/{channel}')
     def show(request: Request, channel: str, db: Session = Depends(get_db)):
         """show the connected user's current channel"""
-        with theme.frame('Home', request):
+        with theme.frame(f'Point count for {channel}', request):
             user = get_session_user(request, db)
             if user is None:
                 raise HTTPException(status_code=401)
@@ -48,7 +48,7 @@ def init(app: FastAPI) -> None:
 
             # with ui.element('div'):
             with ui.row():
-                ui.link('<- back', '/points').classes(replace='text-white font-bold underline')
+                ui.link('<- back to channel list', '/points').classes(replace='text-white font-bold underline')
                 ui.label(f'Channel: {channel}')
                 ui.label(f'Newest entry date: {newest_entry.date}')
 

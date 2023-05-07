@@ -33,7 +33,7 @@ def init(app: FastAPI) -> None:
 
             with ui.row():
                 with ui.card().style('max-width: 300px'):
-                    ui.link('Install userscript', '/userscript/twitch-channel-points-logger.user.js').classes(
+                    ui.link('Install userscript', '/userscript/twitch-channel-points-logger.user.js?nocache').classes(
                         replace='text-white font-bold underline')
                     ui.markdown('You need an userscript extension such as TamperMonkey ('
                                 '[Firefox](https://addons.mozilla.org/en-US/firefox/addon/tampermonkey/), '
@@ -79,5 +79,5 @@ def init(app: FastAPI) -> None:
         set_session_from_user(request, user.id, me.display_name, me.profile_image_url)
         return RedirectResponse('/', status_code=302)
 
-    ui.run_with(app, dark=True)
+    ui.run_with(app, dark=True, title='Xorus\' Twitch Points Logger webapp')
     points.init(app)
