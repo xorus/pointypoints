@@ -1,8 +1,11 @@
 services:
-  app:
-    build: .
-    env_file: .env
+  postgres:
+    image: postgres:15
     ports:
-      - 8000:8000
+      - 5432:5432
     volumes:
-      - './run/docker:/app/run:rw'
+      - './run/pgsql:/var/lib/postgresql/data:rw'
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}

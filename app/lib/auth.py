@@ -11,7 +11,8 @@ from starlette.exceptions import HTTPException
 
 from app.db.database import get_db
 from app.db.schemas import UserFull
-from app.db.user import get_user
+from app.db.user import get_user, get_user_by_twitch_id, create_user_from_twitch
+from app.lib.twitch import hash_twitch_id
 from app.settings import settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -54,3 +55,12 @@ def create_access_token(user_id: uuid.UUID, user_name: str, user_token: str):
 
 
 RequireUserToken = Annotated[UserFull, Depends(get_current_user)]
+
+
+def user_from_login(plain_twitch_id: str, display_name: str, profile_image_url: str, db: Session) -> UserFull:
+    hashed_twitch_id = hash_twitch_id(plain_twitch_id)
+    user = get_user_by_twitch_id(hashed_twitch_id, db)
+    if user is None:
+        user = create_user_from_twitch(hashed_twitch_id, display_name, profile_image_url, db)
+
+    return user

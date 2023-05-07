@@ -1,5 +1,6 @@
 import uuid
 
+import sqlalchemy.types
 from fastapi import Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -29,7 +30,7 @@ def get_session_info(request: Request) -> SessionData | None:
 
 def get_session_user(request: Request, db: Session):
     if request.session is None:
-        return False
+        return None
 
     user_id = SessionData(**request.session).user_id
     if user_id is None:

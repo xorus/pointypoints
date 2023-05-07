@@ -6,11 +6,11 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 
-def create_user_from_twitch(twitch_id: str, display_name: str, profile_image_url: str, db: Session) -> schemas.UserFull:
+def create_user_from_twitch(hashed_twitch_id: str, display_name: str, profile_image_url: str, db: Session) -> schemas.UserFull:
     db_item = models.User(
         id=uuid.uuid4(),
         token=token_urlsafe(64),
-        twitch_id=twitch_id,
+        twitch_id=hashed_twitch_id,
         display_name=display_name,
         profile_image_url=profile_image_url,
     )
@@ -33,3 +33,5 @@ def update_existing_info(user: schemas.UserFull, db: Session) -> schemas.UserFul
 
 def get_user(sub: uuid.UUID, db: Session) -> schemas.UserFull | None:
     return db.query(models.User).filter(models.User.id == sub).first()
+
+

@@ -8,6 +8,13 @@ class Settings(BaseSettings):
     # openssl rand -hex 32
     jwt_secret: str
     session_secret: str
+    database_url: str
+
+    class Config:
+        env_prefix = ""
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+        case_sensitive = False
 
 
 settings = Settings()

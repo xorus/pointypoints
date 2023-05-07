@@ -28,7 +28,6 @@ class UserFull(UserDetails, UserCreate):
 class PointValueBase(BaseModel):
     channel_name: str
     value: int
-    date: datetime
 
 
 class PointValueDetails(PointValueBase):

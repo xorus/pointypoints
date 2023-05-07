@@ -9,4 +9,4 @@ userscript
 !userscript/build/
 .dockerignore
 Dockerfile
-docker-compose.yml
+docker/docker-compose.yml

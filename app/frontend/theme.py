@@ -28,5 +28,5 @@ def frame(nav_title: str, request: Request):
                     ).style('width: auto; height: auto;')
             else:
                 ui.link('Login (via Twitch)', '/login').classes(replace='text-white')
-    with ui.row().classes('container mx-auto'):
+    with ui.element('div').classes('container mx-auto'):
         yield
