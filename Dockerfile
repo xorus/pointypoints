@@ -6,13 +6,14 @@ RUN pip install poetry==1.4.2 && \
 #RUN apt update && apt install -y <PACKAGE>\ <Package>
 #RUN apt-get clean && \ rm -rf /var/lib/apt/lists/*
 
-COPY . /app
-
 WORKDIR /app
 ENV PYTHONPATH=${PYTHONPATH}:${PWD}
 
-RUN poetry lock && poetry install --only main
+COPY pyproject.toml /app
+COPY poetry.lock /app
+RUN poetry install --only main
 
+COPY . /app
 EXPOSE 8000
 
 ENTRYPOINT ["/app/docker/init.sh"]
