@@ -71,9 +71,7 @@ def init(app: FastAPI) -> None:
                        <h1>Logged in as {me.display_name}</h1>
                        <p>Copy this token in the "Auth token" field:</p>
                        <div style="user-select: all;font-family: monospace;border: 1px dashed #777;
-                       padding: 10px;margin-top: 10px;">
-                            {access_token}
-                       </div>
+                       padding: 10px;margin-top: 10px;">{access_token}</div>
                        <p>This is a bit manual for now but it's a work in progress, sorry!</p>
                        <p>Once done, you can close this window :).</p>
                    </body>
