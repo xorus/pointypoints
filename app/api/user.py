@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-from starlette.responses import HTMLResponse
+from starlette.responses import HTMLResponse, RedirectResponse
 from twitchAPI import Twitch
 
 from app.db.database import get_db
@@ -37,6 +37,11 @@ def init(app: FastAPI) -> None:
         url, state = twitch_oauth2_redirect('/api/auth/twitch')
         return {"url": url}
 
+    @app.get('/login_userscript')
+    async def login_twitch():
+        url, state = twitch_oauth2_redirect('/api/auth/twitch')
+        return RedirectResponse(url=url, status_code=302)
+
     @app.get('/api/auth/twitch')
     async def auth_twitch(code: str, db: Session = Depends(get_db)):
         result = await twitch_oauth2_fetch_token(code)
@@ -55,4 +60,22 @@ def init(app: FastAPI) -> None:
 
         user = user_from_login(me.id, me.display_name, me.profile_image_url, db)
         access_token = create_access_token(user.id, me.display_name, user.token)
-        return {"access_token": access_token}
+        # return {"access_token": access_token}
+
+        return HTMLResponse(f"""
+                <html>
+                   <head>
+                       <title>Xorus' Twitch Point Counter</title>
+                   </head>
+                   <body style="background: #121212; color: white; font-family: sans-serif; word-wrap: anywhere;">
+                       <h1>Logged in as {me.display_name}</h1>
+                       <p>Copy this token in the "Auth token" field:</p>
+                       <div style="user-select: all;font-family: monospace;border: 1px dashed #777;
+                       padding: 10px;margin-top: 10px;">
+                            {access_token}
+                       </div>
+                       <p>This is a bit manual for now but it's a work in progress, sorry!</p>
+                       <p>Once done, you can close this window :).</p>
+                   </body>
+               </html>
+               """)
