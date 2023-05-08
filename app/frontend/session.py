@@ -1,13 +1,10 @@
 import uuid
 
-import sqlalchemy.types
-from fastapi import Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from starlette.requests import Request
 
 from app.db import models
-from app.db.database import get_db
 
 
 class SessionData(BaseModel):

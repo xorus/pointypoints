@@ -14,6 +14,7 @@ but heh. I'll replace it later.
 TODO:
 
 - csv export your point data
+- filter data by stream (or string of consecutive points)
 
 ## install run
 

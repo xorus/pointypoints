@@ -14,14 +14,14 @@ def twitch_login_error_html(message: str) -> str:
     """
     display a somewhat user-friendly error even though this is the api because of the pop-up flow.
     """
-    return f"""
-            <html>
+    return f"""<!DOCTYPE html><html>
                <head>
                    <title>Xorus' Twitch Point Counter</title>
                </head>
                <body style="background: #121212; color: white; font-family: sans-serif;">
                    <p>{message}</p>
                    <p>Please close this window and try logging in again.</p>
+                   <a href="/login_userscript" style="color: white">retry</p>
                </body>
            </html>
            """
@@ -62,18 +62,23 @@ def init(app: FastAPI) -> None:
         access_token = create_access_token(user.id, me.display_name, user.token)
         # return {"access_token": access_token}
 
-        return HTMLResponse(f"""
-                <html>
+        return HTMLResponse(f"""<!DOCTYPE html><html>
                    <head>
                        <title>Xorus' Twitch Point Counter</title>
                    </head>
                    <body style="background: #121212; color: white; font-family: sans-serif; word-wrap: anywhere;">
                        <h1>Logged in as {me.display_name}</h1>
-                       <p>Copy this token in the "Auth token" field:</p>
-                       <div style="user-select: all;font-family: monospace;border: 1px dashed #777;
-                       padding: 10px;margin-top: 10px;">{access_token}</div>
-                       <p>This is a bit manual for now but it's a work in progress, sorry!</p>
-                       <p>Once done, you can close this window :).</p>
+                       <div id="pointy-points-auto-access-token" data-token="{access_token}">
+                           <p>Copy this token in the "Auth token" field:</p>
+                           <div style="user-select: all;font-family: monospace;border: 1px dashed #777;
+                           padding: 10px;margin-top: 10px;">{access_token}</div>
+                           <p>This is a bit manual for now but it's a work in progress, sorry!</p>
+                           <p>Once done, you can close this window :).</p>
+                        </div>
+                       <div class="pointy-points-auto-access-token-show" style="display: none;">
+                           <p>You're all set!</p>
+                           <p>Login process is complete, you can now close this window.</p>
+                       </div>
                    </body>
                </html>
                """)
